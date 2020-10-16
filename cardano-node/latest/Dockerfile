@@ -7,6 +7,7 @@ ENV CARDANO_NODE_VERSION="master"
 
 RUN yum update -y && \
     yum install -y libsodium-devel openssl-devel zlib-devel
+RUN ghcup upgrade
 RUN ghcup install cabal ${CABAL_VERSION}
 RUN ghcup install ghc ${GHC_VERSION} && \
     ghcup set ghc ${GHC_VERSION}
@@ -16,10 +17,10 @@ RUN git clone --recurse-submodules https://github.com/input-output-hk/cardano-no
 WORKDIR /usr/src/cardano-node
 RUN git fetch --all
 RUN git checkout ${CARDANO_NODE_VERSION}
-RUN git cherry-pick -n 60500f976d2e43d59f6cb890972dc2b6845b1f6d # Add the upcoming Allegra and Mary eras to CardanoBlock #1958
-RUN git cherry-pick -n ed51dbc465018de90ee99a9c2fdefa1ad832d08d # Add the upcoming Allegra and Mary eras to CardanoBlock #1958
-RUN git cherry-pick -n 34cf5f3105831e4a5f0c8407a0e1c6f0e408c43f # Add the upcoming Allegra and Mary eras to CardanoBlock #1958
-RUN git cherry-pick -n 7d1a72803625c7c57d25d695aa418b13b2a3a84d # Add the upcoming Allegra and Mary eras to CardanoBlock #1958
+RUN git cherry-pick -n 155fc25cbb4377d86fbce1fa6476a14384b719de # Add the upcoming Allegra and Mary eras to CardanoBlock #1958
+RUN git cherry-pick -n a81007b2e31c0aee9771208405fd78c41f398865 # Add the upcoming Allegra and Mary eras to CardanoBlock #1958
+RUN git cherry-pick -n 4d7af4c50f7635b7fb32e977a1c2e9c8c887b3e6 # Add the upcoming Allegra and Mary eras to CardanoBlock #1958
+RUN git cherry-pick -n 85e3fa880786dcd7278f8b70cc59348d38898cad # Add the upcoming Allegra and Mary eras to CardanoBlock #1958
 RUN scripts/gen-cabal-nosystemd.sh
 
 # Ugly workaround for vty-5.25.1
