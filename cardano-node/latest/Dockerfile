@@ -6,7 +6,7 @@ ENV GHC_VERSION="8.10.2"
 ENV CARDANO_NODE_VERSION="master"
 
 RUN yum update -y && \
-    yum install -y libsodium-devel openssl-devel zlib-devel
+    yum install -y libsodium-devel openssl-devel pkgconf zlib-devel
 RUN ghcup upgrade
 RUN ghcup install cabal ${CABAL_VERSION}
 RUN ghcup install ghc ${GHC_VERSION} && \
@@ -21,8 +21,6 @@ RUN git checkout ${CARDANO_NODE_VERSION}
 RUN git cherry-pick -n 7884094f4bba12057389b1263be49ada7d714bd3
 RUN scripts/gen-cabal-nosystemd.sh
 
-# Ugly workaround for vty-5.25.1
-RUN ln -s /usr/lib64/libtinfo.so.6 /usr/lib64/libtinfo.so
 RUN cabal v2-update
 RUN cabal v2-install cardano-cli \
 --allow-newer=base \
