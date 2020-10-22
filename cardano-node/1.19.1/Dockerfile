@@ -6,7 +6,7 @@ ENV GHC_VERSION="8.6.5"
 ENV CARDANO_NODE_VERSION="1.19.1"
 
 RUN yum update -y && \
-    yum install -y libsodium-devel openssl-devel systemd-devel zlib-devel
+    yum install -y libsodium-devel openssl-devel pkgconf systemd-devel zlib-devel
 RUN ghcup install cabal ${CABAL_VERSION}
 RUN ghcup install ghc ${GHC_VERSION} && \
     ghcup set ghc ${GHC_VERSION}
@@ -24,13 +24,11 @@ RUN cabal update
 RUN cabal install cardano-cli \
       --installdir=/usr/local/bin \
       --install-method=copy \
-      -f -systemd \
       -f -external-libsodium-vrf \
       --minimize-conflict-set
 RUN cabal install cardano-node \
       --installdir=/usr/local/bin \
       --install-method=copy \
-      -f -systemd \
       -f -external-libsodium-vrf
 
 FROM perlur/centos-base
