@@ -65,15 +65,18 @@ RUN useradd -c "Cardano node user" \
 
 RUN mkdir -p /var/run/cardano/
 RUN chown cardano-node.cardano-node /var/run/cardano/
-RUN chown -R cardano-node.cardano-node /srv/cardano/cardano-node/etc
+WORKDIR /srv/cardano/cardano-node/
 USER cardano-node
 
-RUN mkdir /srv/cardano/cardano-node/{etc,log,storage}/
+USER root
+COPY srv/cardano/cardano-node/ /srv/cardano/cardano-node/
+RUN chown -R cardano-node.cardano-node /srv/cardano/cardano-node/etc/
+USER cardano-node
+
+RUN mkdir /srv/cardano/cardano-node/{log,storage}/
 RUN mkdir /srv/cardano/cardano-node/etc/secrets/
 
 WORKDIR /srv/cardano/cardano-node/
-
-COPY srv/cardano/cardano-node/ /srv/cardano/cardano-node/
 
 HEALTHCHECK --interval=1s --timeout=2s CMD cnode-ctl healthcheck || exit 1
 
