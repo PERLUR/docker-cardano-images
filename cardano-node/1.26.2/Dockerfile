@@ -1,9 +1,9 @@
 FROM perlur/centos-haskell-ghcup AS builder
 
-ENV CABAL_VERSION="3.2.0.0"
+ENV CABAL_VERSION="3.4.0.0"
 ENV GHC_VERSION="8.10.3"
 
-ENV CARDANO_NODE_VERSION="1.24.2"
+ENV CARDANO_NODE_VERSION="1.26.2"
 
 RUN yum update -y && \
     yum install -y libsodium-devel openssl-devel zlib-devel
@@ -17,7 +17,6 @@ RUN git clone --recurse-submodules https://github.com/input-output-hk/cardano-no
 WORKDIR /usr/src/cardano-node
 RUN git fetch --all
 RUN git checkout ${CARDANO_NODE_VERSION}
-RUN git cherry-pick -m 1 -n 66897326c457bd665651c28388ef2c1ec3af83f7
 RUN scripts/gen-cabal-nosystemd.sh
 COPY cabal.project.local ./
 
