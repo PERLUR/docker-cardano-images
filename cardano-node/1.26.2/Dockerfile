@@ -34,12 +34,6 @@ RUN cabal install cardano-node \
       --install-method=copy \
       -f -external-libsodium-vrf
 
-RUN cabal install cardano-testnet \
-      --project-file=cabal.nosystemd.project \
-      --installdir=/usr/local/bin \
-      --install-method=copy \
-      -f -external-libsodium-vrf
-
 FROM perlur/centos-base
 
 LABEL maintainer="Mark Stopka <mark.stopka@perlur.cloud>"
@@ -57,7 +51,6 @@ EXPOSE 9000
 
 COPY --from=builder /usr/local/bin/cardano-node /usr/local/bin/
 COPY --from=builder /usr/local/bin/cardano-cli /usr/local/bin/
-COPY --from=builder /usr/local/bin/cardano-testnet /usr/local/bin/
 COPY usr/local/lib/* /usr/local/lib/
 COPY usr/local/bin/* /usr/local/bin/
 
