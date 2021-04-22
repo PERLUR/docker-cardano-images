@@ -1,6 +1,6 @@
 FROM perlur/centos-haskell-ghcup AS builder
 
-ENV CABAL_VERSION="3.2.0.0"
+ENV CABAL_VERSION="3.4.0.0"
 ENV GHC_VERSION="8.10.4"
 
 ENV CARDANO_NODE_VERSION="master"
