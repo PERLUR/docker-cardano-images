@@ -1,4 +1,4 @@
-# docker-hub-cardano-images
+# docker-cardano-images
 Useful Docker images for [Cardano Blockchain project](https://cardano.org/)
 
 ## Usage
