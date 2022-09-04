@@ -2,6 +2,9 @@
 
 set -e
 
+export LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
+
 CURRENT_TIME=$(date +%s)
 CONTAINER_START_TIME=$(stat --format %X /proc/1/)
 CONTAINER_UPTIME=$((${CURRENT_TIME} - ${CONTAINER_START_TIME}))
